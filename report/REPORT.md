@@ -6,7 +6,7 @@
 
 | Họ tên | Mã sinh viên | Phần đóng góp |
 |---|---|---|
-| (điền) | (điền) | Toàn bộ lab (thực hiện cá nhân) |
+| Vũ Việt Hoàng | 2A202602398 | Toàn bộ lab (thực hiện cá nhân) |
 
 - Mô hình, nhiệt độ, `recursion_limit`: `LAB_MODEL=google_genai:gemini-3.5-flash-lite`, tự chuyển sang `gemini-3.1-flash-lite` khi hết hạn mức ngày (`src/lab/gemini.py`); `LAB_TEMPERATURE=0`; `recursion_limit=60` (mặc định của runner).
 - Phiên bản Deep Agents, hệ điều hành, chạy trực tiếp hay trong Docker: `deepagents==0.7.21`, Windows 11, chạy trực tiếp (shell của tác tử là Git Bash).
