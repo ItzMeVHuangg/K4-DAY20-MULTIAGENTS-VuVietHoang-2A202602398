@@ -93,6 +93,7 @@ pytest tests/test_01_provided.py
 
 1. **Azure OpenAI hoặc cổng tương thích OpenAI**: `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_KEY`, `AZURE_OPENAI_DEPLOYMENT_MODEL`.
 2. **Nhà cung cấp khác** (ví dụ DeepSeek): `LAB_MODEL=deepseek:deepseek-chat` và `DEEPSEEK_API_KEY`. Tên mô hình thay đổi theo thời gian, đối chiếu tài liệu của nhà cung cấp.
+3. **Gemini (gói miễn phí)**: `LAB_MODEL=google_genai:gemini-3.5-flash-lite` và `GOOGLE_API_KEY`. `src/lab/gemini.py` giữ tối đa 14 request mỗi phút (dưới 15), khoảng 225K token mỗi phút (dưới 250K) và 499 request mỗi ngày cho mỗi mô hình (dưới 500); khi mô hình hết hạn mức ngày, tự chuyển sang mô hình kế tiếp trong `LAB_FALLBACK_MODELS` (mặc định `gemini-3.1-flash-lite`). Bộ đếm lưu trong `.gemini_usage.json` (không commit), nên các lần chạy riêng lẻ dùng chung ngân sách.
 
 Kết quả mong đợi của `pytest tests/test_01_provided.py`: `12 passed`. Không commit tệp `.env`.
 

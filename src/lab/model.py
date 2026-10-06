@@ -7,6 +7,8 @@ Two configurations are supported (the first that matches wins):
    (optional: AZURE_OPENAI_API_VERSION, used only for real Azure endpoints).
 2. Any LangChain provider - set LAB_MODEL="<provider>:<model>" (default "deepseek:deepseek-chat")
    and the key variable of that provider (for example DEEPSEEK_API_KEY).
+   LAB_MODEL="google_genai:gemini-3.5-flash" + GOOGLE_API_KEY selects Gemini with the request budget and the
+   model fallback of lab/gemini.py (free tier: < 5 requests per minute, 20 requests per day per model).
 """
 import os
 
@@ -32,4 +34,9 @@ def make_model():
             )
         from langchain_openai import ChatOpenAI
         return ChatOpenAI(base_url=endpoint, api_key=key, model=deployment, temperature=temperature, timeout=120)
-    return init_chat_model(os.getenv("LAB_MODEL", "deepseek:deepseek-chat"), temperature=temperature)
+    name = os.getenv("LAB_MODEL", "deepseek:deepseek-chat")
+    if name.startswith(("google_genai:", "gemini:")):
+        # Gemini free tier: < 5 requests/minute, 20 requests/day per model, falls back to another model (lab/gemini.py)
+        from .gemini import make_gemini_model
+        return make_gemini_model(name.split(":", 1)[1], temperature)
+    return init_chat_model(name, temperature=temperature)
